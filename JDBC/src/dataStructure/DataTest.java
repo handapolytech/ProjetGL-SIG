@@ -1,17 +1,31 @@
 package dataStructure;
 
+import java.sql.ResultSet;
+
 public class DataTest extends Data{
 
+	public static final String fieldId = "id";
+	public static final String fieldNum = "num";
+	public static final String fieldString = "string";
+	public static final String fieldText = "text";
+	
 	public int id;
 	public int num;
 	public String string;
 	public String text;
 		
-
-
-	public DataTest(int id, int i, String string, String text) {
+	protected DataTest(){
 		super();
-		this.tableName = "test";
+		tableName = "test";
+		defautUpdateColums = new String[]{"id","num","string","text"};
+	}
+
+	public DataTest(ResultSet resultSet){
+		super();
+	}
+	
+	public DataTest(int id, int i, String string, String text) {
+		this();
 		this.id = id;
 		this.num = i;
 		this.string = string;
@@ -22,10 +36,7 @@ public class DataTest extends Data{
 		this(0,i,string,text);
 	}
 
-	@Override
-	public String[] defautUpdateColums() {
-		return new String[]{"id","num","string","text"};
-	}
+	
 
 	
 

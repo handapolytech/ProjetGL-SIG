@@ -1,7 +1,9 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.lang.reflect.*;
 
 import dataStructure.Data;
@@ -15,7 +17,7 @@ public class CommonOperation {
 			"jdbc:mysql://localhost:3306/sig", "root", "" };
 	protected static String dbName = "sig";
 	protected static Connection conn = null;
-	
+
 	/* Fonctions réservé à utiliser à l'intérieur de la classe */
 	// Début d'une connexion
 	protected static Statement startConn() throws SQLException {
@@ -50,7 +52,7 @@ public class CommonOperation {
 		// résultat de l'exécution
 		int result = 0;
 		// Noms des colonnes
-		String[] columNames = data.defautUpdateColums();
+		String[] columNames = data.getDefautUpdateColums();
 		// Requete
 		String sql = "INSERT INTO " + data.getTableName() + " VALUES (";
 		// Ajouter les champs
@@ -81,9 +83,10 @@ public class CommonOperation {
 		endConn();
 		return result;
 	}
-	
+
 	/**
 	 * Supprimer une donnée depuis son id
+	 * 
 	 * @param tableName
 	 * @param id
 	 * @return
@@ -101,10 +104,11 @@ public class CommonOperation {
 		endConn();
 		return result;
 	}
-	
+
 	/**
-	 * Modifier une donnée
-	 * Attention: C'est l'id de data qui détermine la donnée à mettre à jour
+	 * Modifier une donnée Attention: C'est l'id de data qui détermine la donnée
+	 * à mettre à jour
+	 * 
 	 * @param data
 	 * @return
 	 * @throws NoSuchFieldException
@@ -121,7 +125,7 @@ public class CommonOperation {
 		// résultat de l'exécution
 		int result = 0;
 		// Noms des colonnes
-		String[] columNames = data.defautUpdateColums();
+		String[] columNames = data.getDefautUpdateColums();
 		// Requete
 		String sql = "UPDATE " + data.getTableName() + " SET ";
 		// Ajouter les champs
@@ -129,7 +133,8 @@ public class CommonOperation {
 			for (int i = 0; i < columNames.length - 1; i++) {
 				if (!columNames[i].equals("id")) {
 					Class<?> c = data.getClass();
-					// Récupérer l'attribut de l'objet data qui prote le nom "name"
+					// Récupérer l'attribut de l'objet data qui prote le nom
+					// "name"
 					Field field = c.getDeclaredField(columNames[i]);
 					if (field.get(data) == null) {
 						sql += columNames[i] + "='',";
@@ -145,20 +150,47 @@ public class CommonOperation {
 		if (field.get(data) == null) {
 			sql += columNames[columNames.length - 1] + "=''";
 		} else {
-			sql += columNames[columNames.length - 1] + "='" + field.get(data) + "'";
+			sql += columNames[columNames.length - 1] + "='" + field.get(data)
+					+ "'";
 		}
 		// compléter la fin de la requet
 		field = c.getDeclaredField("id");
-		sql += " WHERE id="+field.get(data);
-		//debug
-		//System.out.println(sql);
+		sql += " WHERE id=" + field.get(data);
+		// debug
+		// System.out.println(sql);
 		// Exécuter la requete
 		result = statement.executeUpdate(sql);
 		endConn();
 		return result;
 	}
+
+	public static <T extends Data>ArrayList<T> selectAll(Class c) throws NoSuchFieldException,
+			SecurityException, IllegalArgumentException,
+			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+		// statement pour exécuter une requete
+		Statement statement = startConn();
+		// résultat de l'exécution
+		ResultSet resultSet = null;
+		// Noms des colonnes
+		String[] columNames = T.defautUpdateColums;
+		// Requete
+		String sql = "SELECT * FROM " + T.tableName;
+		resultSet = statement.executeQuery(sql);
+		ArrayList<T> resultArray = new ArrayList<T>();
+		while (resultSet.next()) {
+		T t = c.getConstructor()
+				[0].newInstance(null);
+		System.out.println(t.getClass());
+		}
+		endConn();
+		return null;
+	}
+
 	
-	
+	//TODO
+	public int updateSingleColumn(Data date,String columnName,String content){
+		return 0;
+	}
 	
 	// public IList<T> GenerateAllList<T>() where T : Data.BaseData, new();
 	// public IList<T> GenerateAllList<T>(T baseData) where T : Data.BaseData,
@@ -181,15 +213,16 @@ public class CommonOperation {
 	// where T : Data.BaseData, new();
 	public static void main(String[] args) throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException,
-			IllegalAccessException, SQLException {
-		DataTest data= new DataTest(0,9999,"helm","opps");
-//		System.out.println(CommonOperation.insert(data));
-//		System.out.println(CommonOperation.deleteById(DataTest.tableName,
-//		 2));
-//		data.id = 4;
-//		data.num = 52;
-//		System.out.println(CommonOperation.updateById(data));
-		
+			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+		DataTest data = new DataTest(0, 9999, "helm", "opps");
+		// System.out.println(CommonOperation.insert(data));
+		// System.out.println(CommonOperation.deleteById(DataTest.tableName,
+		// 2));
+		// data.id = 4;
+		// data.num = 52;
+		// System.out.println(CommonOperation.updateById(data));
+		CommonOperation.<DataTest>selectAll(DataTest.class);
+
 	}
 
 }
