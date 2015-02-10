@@ -14,7 +14,7 @@ public class DataTest extends Data{
 	public String string;
 	public String text;
 		
-	protected DataTest(){
+	public DataTest(){
 		super();
 		tableName = "test";
 		defautUpdateColums = new String[]{"id","num","string","text"};

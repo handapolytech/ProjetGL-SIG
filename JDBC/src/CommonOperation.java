@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.lang.reflect.*;
+import java.lang.Class;
+
+import javax.sound.sampled.DataLine;
 
 import dataStructure.Data;
 import dataStructure.DataTest;
@@ -164,7 +167,7 @@ public class CommonOperation {
 		return result;
 	}
 
-	public static <T extends Data>ArrayList<T> selectAll(Class c) throws NoSuchFieldException,
+	public static <T extends Data>ArrayList<T> selectAll(Class<T> classT) throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException,
 			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
 		// statement pour exécuter une requete
@@ -178,12 +181,16 @@ public class CommonOperation {
 		resultSet = statement.executeQuery(sql);
 		ArrayList<T> resultArray = new ArrayList<T>();
 		while (resultSet.next()) {
-		T t = c.getConstructor()
-				[0].newInstance(null);
-		System.out.println(t.getClass());
+		T t = classT.newInstance();
+			for (String columnName : columNames) {
+				Field field = classT.getDeclaredField(columnName);
+				field.set(t,resultSet.getObject(columnName));
+			}
+			resultArray.add(t);
 		}
+		
 		endConn();
-		return null;
+		return resultArray;
 	}
 
 	
@@ -214,14 +221,19 @@ public class CommonOperation {
 	public static void main(String[] args) throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException,
 			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
-		DataTest data = new DataTest(0, 9999, "helm", "opps");
+		//DataTest data = new DataTest(0, 9999, "helm", "opps");
+		////insert Test 
 		// System.out.println(CommonOperation.insert(data));
+		////delete Test 
 		// System.out.println(CommonOperation.deleteById(DataTest.tableName,
 		// 2));
 		// data.id = 4;
 		// data.num = 52;
+		////update test
 		// System.out.println(CommonOperation.updateById(data));
-		CommonOperation.<DataTest>selectAll(DataTest.class);
+		////select all test
+		//ArrayList<DataTest> al = CommonOperation.<DataTest>selectAll(DataTest.class);
+		//System.out.println(al.get(0).text);
 
 	}
 

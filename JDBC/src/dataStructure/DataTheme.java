@@ -10,7 +10,7 @@ public class DataTheme extends Data{
 	public int id;
 	public String theme;
 	
-	protected DataTheme(){
+	public DataTheme(){
 		super();
 		tableName = "theme";
 		DataTheme.defautUpdateColums = new String[]{"id","theme"};		
