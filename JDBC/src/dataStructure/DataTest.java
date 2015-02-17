@@ -13,14 +13,11 @@ public class DataTest extends Data{
 	public int num;
 	public String string;
 	public String text;
-		
+	
+	public static String tableName = "test";		
+	public static String[] defautUpdateColums = new String[]{"id","num","string","text"};
+	
 	public DataTest(){
-		super();
-		tableName = "test";
-		defautUpdateColums = new String[]{"id","num","string","text"};
-	}
-
-	public DataTest(ResultSet resultSet){
 		super();
 	}
 	

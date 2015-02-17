@@ -166,38 +166,138 @@ public class CommonOperation {
 		endConn();
 		return result;
 	}
-
-	public static <T extends Data>ArrayList<T> selectAll(Class<T> classT) throws NoSuchFieldException,
-			SecurityException, IllegalArgumentException,
-			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+	/**
+	 * Selectionner tous les données dans un tableau
+	 * @param classT
+	 * @return
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	public static <T extends Data> ArrayList<T> selectAll(Class<T> classT)
+			throws NoSuchFieldException, SecurityException,
+			IllegalArgumentException, IllegalAccessException, SQLException,
+			InstantiationException, InvocationTargetException,
+			NoSuchMethodException {
 		// statement pour exécuter une requete
 		Statement statement = startConn();
 		// résultat de l'exécution
 		ResultSet resultSet = null;
 		// Noms des colonnes
-		String[] columNames = T.defautUpdateColums;
+		Field fieldColumnNames = classT.getDeclaredField("defautUpdateColums");
+		String[] columnNames = (String[]) fieldColumnNames.get(null);
 		// Requete
-		String sql = "SELECT * FROM " + T.tableName;
+		Field fieldTableName = classT.getDeclaredField("tableName");
+		String sql = "SELECT * FROM " + fieldTableName.get(null);
 		resultSet = statement.executeQuery(sql);
 		ArrayList<T> resultArray = new ArrayList<T>();
 		while (resultSet.next()) {
-		T t = classT.newInstance();
-			for (String columnName : columNames) {
+			T t = classT.newInstance();
+			for (String columnName : columnNames) {
 				Field field = classT.getDeclaredField(columnName);
-				field.set(t,resultSet.getObject(columnName));
+				field.set(t, resultSet.getObject(columnName));
 			}
 			resultArray.add(t);
 		}
-		
+
 		endConn();
 		return resultArray;
 	}
 
-	
-	//TODO
-	public int updateSingleColumn(Data date,String columnName,String content){
-		return 0;
+	/**
+	 * Mettre à jour une seule colone (pour la donnée qui a le même id que data)
+	 * 
+	 * @param data
+	 * @param columnName
+	 * @param content
+	 * @return
+	 * @throws SQLException
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 */
+	public static int updateSingleColumn(Data data, String columnName, String content)
+			throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		// statement pour exécuter une requete
+		Statement statement = startConn();
+		// résultat de l'exécution
+		int result = 0;
+		// Noms des colonnes
+		String[] columNames = data.getDefautUpdateColums();
+		// Requete
+		String sql = "UPDATE " + data.getTableName() + " SET ";
+		Class<?> c = data.getClass();
+		// Récupérer l'attribut de l'objet data qui prote le nom "columnName"
+		Field field = c.getDeclaredField(columnName);
+		if (field.get(data) == null) {
+			sql += columnName+ "=''";
+		} else {
+			sql += columnName+ "='" + content
+					+ "'";
+		}
+		// compléter la fin de la requet
+		field = c.getDeclaredField("id");
+		sql += " WHERE id=" + field.get(data);
+		// debug
+		// System.out.println(sql);
+		// Exécuter la requete
+		result = statement.executeUpdate(sql);
+		endConn();
+		return result;
 	}
+	
+
+	/**
+	 * Select avec condition where 
+	 * @param classT
+	 * @param condition
+	 * @return
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	public static <T extends Data> ArrayList<T> selectWhere(Class<T> classT,String condition)
+			throws NoSuchFieldException, SecurityException,
+			IllegalArgumentException, IllegalAccessException, SQLException,
+			InstantiationException, InvocationTargetException,
+			NoSuchMethodException {
+		// statement pour exécuter une requete
+		Statement statement = startConn();
+		// résultat de l'exécution
+		ResultSet resultSet = null;
+		// Noms des colonnes
+		Field fieldColumnNames = classT.getDeclaredField("defautUpdateColums");
+		String[] columnNames = (String[]) fieldColumnNames.get(null);
+		// Requete
+		Field fieldTableName = classT.getDeclaredField("tableName");
+		String sql = "SELECT * FROM " + fieldTableName.get(null)+" WHERE "+condition;
+		resultSet = statement.executeQuery(sql);
+		ArrayList<T> resultArray = new ArrayList<T>();
+		while (resultSet.next()) {
+			T t = classT.newInstance();
+			for (String columnName : columnNames) {
+				Field field = classT.getDeclaredField(columnName);
+				field.set(t, resultSet.getObject(columnName));
+			}
+			resultArray.add(t);
+		}
+		endConn();
+		return resultArray;
+	}
+	
+	//TODO update by FK
+	//TODO traitement dateType
 	
 	// public IList<T> GenerateAllList<T>() where T : Data.BaseData, new();
 	// public IList<T> GenerateAllList<T>(T baseData) where T : Data.BaseData,
@@ -220,20 +320,31 @@ public class CommonOperation {
 	// where T : Data.BaseData, new();
 	public static void main(String[] args) throws NoSuchFieldException,
 			SecurityException, IllegalArgumentException,
-			IllegalAccessException, SQLException, InstantiationException, InvocationTargetException, NoSuchMethodException {
-		//DataTest data = new DataTest(0, 9999, "helm", "opps");
-		////insert Test 
-		// System.out.println(CommonOperation.insert(data));
-		////delete Test 
-		// System.out.println(CommonOperation.deleteById(DataTest.tableName,
-		// 2));
-		// data.id = 4;
-		// data.num = 52;
-		////update test
-		// System.out.println(CommonOperation.updateById(data));
-		////select all test
-		//ArrayList<DataTest> al = CommonOperation.<DataTest>selectAll(DataTest.class);
-		//System.out.println(al.get(0).text);
+			IllegalAccessException, SQLException, InstantiationException,
+			InvocationTargetException, NoSuchMethodException {
+//		 DataTest data = new DataTest(0, 9999, "helm", "opps");
+//		 //insert Test
+//		 System.out.println(CommonOperation.insert(data));
+//		 //delete Test
+//		 System.out.println(CommonOperation.deleteById(DataTest.tableName,
+//		 2));
+//		 data.id = 4;
+//		 data.num = 52;
+//		 //update test
+//		 System.out.println(CommonOperation.updateById(data));
+//		 //select all test
+//		 ArrayList<DataTest> al =
+//		 CommonOperation.<DataTest>selectAll(DataTest.class);
+//		 System.out.println(al.get(0).text);
+//		 //update test pour le champ num
+//		DataTest data1 = new DataTest(4, 9999, "helm", "opps");
+//		System.out.println(CommonOperation.updateSingleColumn(data1, "num", "1"));
+//		 //select from test where num = 1
+		 ArrayList<DataTest> al =
+		 CommonOperation.<DataTest>selectWhere(DataTest.class,"num < 9");
+		 if (al.size()>0) {
+			 System.out.println(al.get(0).text);
+		}
 
 	}
 
