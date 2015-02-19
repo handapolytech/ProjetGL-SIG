@@ -3,7 +3,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.lang.reflect.*;
 import java.lang.Class;
 
@@ -55,7 +58,7 @@ public class CommonOperation {
 		// résultat de l'exécution
 		int result = 0;
 		// Noms des colonnes
-		String[] columNames = data.getDefautUpdateColums();
+		String[] columNames = data.getDefautUpdateColumns();
 		// Requete
 		String sql = "INSERT INTO " + data.getTableName() + " VALUES (";
 		// Ajouter les champs
@@ -76,7 +79,12 @@ public class CommonOperation {
 		Field field = c.getDeclaredField(columNames[columNames.length - 1]);
 		if (field.get(data) == null) {
 			sql += "null,";
-		} else {
+		} else if(field.get(data).getClass().equals(Date.class)){
+			//Formater la date pour adapter au DateFormat de SQL
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			sql += "'" + df.format((Date)field.get(data)) + "'";
+			
+		}else {
 			sql += "'" + field.get(data) + "'";
 		}
 		// compléter la fin de la requete
@@ -128,7 +136,7 @@ public class CommonOperation {
 		// résultat de l'exécution
 		int result = 0;
 		// Noms des colonnes
-		String[] columNames = data.getDefautUpdateColums();
+		String[] columNames = data.getDefautUpdateColumns();
 		// Requete
 		String sql = "UPDATE " + data.getTableName() + " SET ";
 		// Ajouter les champs
@@ -152,9 +160,15 @@ public class CommonOperation {
 		Field field = c.getDeclaredField(columNames[columNames.length - 1]);
 		if (field.get(data) == null) {
 			sql += columNames[columNames.length - 1] + "=''";
-		} else {
+		} else if(field.get(data).getClass().equals(Date.class)){
+			//Formater la date pour adapter au DateFormat de SQL
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			sql += columNames[columNames.length - 1] + "='" + df.format((Date)field.get(data))
+			+ "'";
+			
+		}else {
 			sql += columNames[columNames.length - 1] + "='" + field.get(data)
-					+ "'";
+			+ "'";
 		}
 		// compléter la fin de la requet
 		field = c.getDeclaredField("id");
@@ -189,11 +203,10 @@ public class CommonOperation {
 		// résultat de l'exécution
 		ResultSet resultSet = null;
 		// Noms des colonnes
-		Field fieldColumnNames = classT.getDeclaredField("defautUpdateColums");
-		String[] columnNames = (String[]) fieldColumnNames.get(null);
+		T dataInstance = classT.newInstance();
+		String[] columnNames = dataInstance.getDefautUpdateColumns();
 		// Requete
-		Field fieldTableName = classT.getDeclaredField("tableName");
-		String sql = "SELECT * FROM " + fieldTableName.get(null);
+		String sql = "SELECT * FROM " + dataInstance.getTableName();
 		resultSet = statement.executeQuery(sql);
 		ArrayList<T> resultArray = new ArrayList<T>();
 		while (resultSet.next()) {
@@ -229,7 +242,7 @@ public class CommonOperation {
 		// résultat de l'exécution
 		int result = 0;
 		// Noms des colonnes
-		String[] columNames = data.getDefautUpdateColums();
+		String[] columNames = data.getDefautUpdateColumns();
 		// Requete
 		String sql = "UPDATE " + data.getTableName() + " SET ";
 		Class<?> c = data.getClass();
@@ -277,11 +290,10 @@ public class CommonOperation {
 		// résultat de l'exécution
 		ResultSet resultSet = null;
 		// Noms des colonnes
-		Field fieldColumnNames = classT.getDeclaredField("defautUpdateColums");
-		String[] columnNames = (String[]) fieldColumnNames.get(null);
+		T instanceData = classT.newInstance();
+		String[] columnNames = instanceData.getDefautUpdateColumns();
 		// Requete
-		Field fieldTableName = classT.getDeclaredField("tableName");
-		String sql = "SELECT * FROM " + fieldTableName.get(null)+" WHERE "+condition;
+		String sql = "SELECT * FROM " + instanceData.getTableName()+" WHERE "+condition;
 		resultSet = statement.executeQuery(sql);
 		ArrayList<T> resultArray = new ArrayList<T>();
 		while (resultSet.next()) {
@@ -296,8 +308,6 @@ public class CommonOperation {
 		return resultArray;
 	}
 	
-	//TODO update by FK
-	//TODO traitement dateType
 	
 	// public IList<T> GenerateAllList<T>() where T : Data.BaseData, new();
 	// public IList<T> GenerateAllList<T>(T baseData) where T : Data.BaseData,
@@ -322,14 +332,17 @@ public class CommonOperation {
 			SecurityException, IllegalArgumentException,
 			IllegalAccessException, SQLException, InstantiationException,
 			InvocationTargetException, NoSuchMethodException {
-//		 DataTest data = new DataTest(0, 9999, "helm", "opps");
+/* Tests pour DataTest */
+//		 DataTest data = new DataTest(0, 99999, "aaa", "Polytech",new Date());
 //		 //insert Test
 //		 System.out.println(CommonOperation.insert(data));
 //		 //delete Test
-//		 System.out.println(CommonOperation.deleteById(DataTest.tableName,
+//		 System.out.println(CommonOperation.deleteById(new DataTest().tableName,
 //		 2));
 //		 data.id = 4;
 //		 data.num = 52;
+//		 
+//		 
 //		 //update test
 //		 System.out.println(CommonOperation.updateById(data));
 //		 //select all test
@@ -337,14 +350,17 @@ public class CommonOperation {
 //		 CommonOperation.<DataTest>selectAll(DataTest.class);
 //		 System.out.println(al.get(0).text);
 //		 //update test pour le champ num
-//		DataTest data1 = new DataTest(4, 9999, "helm", "opps");
+//		DataTest data1 = new DataTest(4, 9999, "helm", "opps",new Date());
 //		System.out.println(CommonOperation.updateSingleColumn(data1, "num", "1"));
 //		 //select from test where num = 1
-		 ArrayList<DataTest> al =
-		 CommonOperation.<DataTest>selectWhere(DataTest.class,"num < 9");
-		 if (al.size()>0) {
-			 System.out.println(al.get(0).text);
-		}
+//		 ArrayList<DataTest> al2 =
+//		 CommonOperation.<DataTest>selectWhere(DataTest.class,"num < 99");
+//		 if (al2.size()>0) {
+//			 System.out.println(al2.get(0).date);
+//		}
+		
+		/* Tests pour les vraies types */
+		
 
 	}
 

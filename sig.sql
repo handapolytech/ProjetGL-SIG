@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2015 at 12:05 AM
+-- Generation Time: Feb 19, 2015 at 02:31 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,8 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `sig`
 --
-CREATE DATABASE IF NOT EXISTS `sig` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `sig`;
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `abonnement_relation` (
 --
 
 CREATE TABLE IF NOT EXISTS `alerte_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int(11) NOT NULL,
   `id_source` int(11) NOT NULL,
   `priorite` int(11) NOT NULL,
@@ -51,9 +51,10 @@ CREATE TABLE IF NOT EXISTS `alerte_relation` (
   `type` varchar(255) NOT NULL,
   `statut` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_utilisateur` (`id_utilisateur`),
   KEY `id_source` (`id_source`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -62,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `alerte_relation` (
 --
 
 CREATE TABLE IF NOT EXISTS `blacklistage_systeme` (
-  `id_blacklistage_systeme` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_source` int(11) NOT NULL,
-  PRIMARY KEY (`id_blacklistage_systeme`),
+  PRIMARY KEY (`id`),
   KEY `id_source` (`id_source`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -90,15 +91,17 @@ CREATE TABLE IF NOT EXISTS `blacklistage_utilisateur_relation` (
 --
 
 CREATE TABLE IF NOT EXISTS `demande_modif_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int(11) NOT NULL,
   `id_source` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `type` varchar(255) NOT NULL,
   `statut` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_utilisateur` (`id_utilisateur`),
   KEY `id_source` (`id_source`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -117,6 +120,35 @@ CREATE TABLE IF NOT EXISTS `source` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test`
+--
+
+CREATE TABLE IF NOT EXISTS `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `num` int(11) NOT NULL,
+  `string` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `test`
+--
+
+INSERT INTO `test` (`id`, `num`, `string`, `text`, `date`) VALUES
+(1, 1212, 'aaaaa', 'bbbbbbbbbbbbb', '2015-02-18 23:46:34'),
+(3, 9999, 'helm', 'opps', '2015-02-18 23:46:34'),
+(4, 1, 'aaa', 'Polytech', '2015-02-19 01:13:02'),
+(5, 999, 'ohla', 'www', '2015-02-18 23:46:34'),
+(7, 99999, 'aaa', 'Polytech', '2015-02-19 01:09:09'),
+(8, 99999, 'aaa', 'Polytech', '2015-02-19 01:09:59'),
+(9, 99999, 'aaa', 'Polytech', '2015-02-19 01:10:56'),
+(10, 99999, 'aaa', 'Polytech', '2015-02-19 01:13:02');
 
 -- --------------------------------------------------------
 

@@ -12,12 +12,11 @@ public class DataAbonnementRelation extends Data {
 	public int id_utilisateur;
 	public int id_source;
 
-	public static String tableName = "abonnement_relation";
-	public static String[] defautUpdateColums = new String[] { "id",
-			"id_utilisateur", "id_source" };
-
 	public DataAbonnementRelation() {
 		super();
+		tableName = "blacklistage_utilisateur_relation";
+		defautUpdateColumns = new String[] { "id",
+				"id_utilisateur", "id_source" };
 	}
 
 	public DataAbonnementRelation(int id, int id_utilisateur, int id_source) {
@@ -27,8 +26,5 @@ public class DataAbonnementRelation extends Data {
 		this.id_source = id_source;
 	}
 
-	public DataAbonnementRelation(int id_utilisateur, int id_source) {
-		this(0, id_utilisateur, id_source);
-	}
 
 }

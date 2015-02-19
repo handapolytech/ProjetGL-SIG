@@ -1,7 +1,5 @@
 package dataStructure;
 
-import java.sql.ResultSet;
-
 public class DataTheme extends Data{
 
 	public static final String fieldId = "id";
@@ -13,21 +11,13 @@ public class DataTheme extends Data{
 	public DataTheme(){
 		super();
 		tableName = "theme";
-		DataTheme.defautUpdateColums = new String[]{"id","theme"};		
-	}
-	
-	public DataTheme(ResultSet resultSet){
-		super();
+		defautUpdateColumns = new String[]{"id","theme"};		
 	}
 	
 	public DataTheme(int id, String theme) {
 		this();
 		this.id = id;
 		this.theme = theme;
-	}
-	//Ce constructeur prend 0 comme id pour l'opération de l'insertion
-	public DataTheme(String theme) {
-		this(0,theme);
 	}
 	
 }

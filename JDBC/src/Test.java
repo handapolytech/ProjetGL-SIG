@@ -1,4 +1,7 @@
 import java.lang.reflect.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class Test {
 
 	public static void main(String[] args) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
@@ -8,9 +11,9 @@ public class Test {
 //		Class<?> c = i.getClass();
 //		Field f = c.getDeclaredField("filed1");
 //		System.out.println(f.get(i));
-		if (null==null) {
-			System.out.println("haha");
-		}
+		Date d = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		System.out.println(df.format(d));
 	}
 	
 	private class Info{
