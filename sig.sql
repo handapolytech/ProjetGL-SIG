@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 19, 2015 at 02:31 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Client :  127.0.0.1
+-- Généré le :  Jeu 05 Mars 2015 à 16:54
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `sig`
+-- Base de données :  `sig`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `abonnement_relation`
+-- Structure de la table `abonnement_relation`
 --
 
 CREATE TABLE IF NOT EXISTS `abonnement_relation` (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `abonnement_relation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alerte_relation`
+-- Structure de la table `alerte_relation`
 --
 
 CREATE TABLE IF NOT EXISTS `alerte_relation` (
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `alerte_relation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blacklistage_systeme`
+-- Structure de la table `blacklistage_systeme`
 --
 
 CREATE TABLE IF NOT EXISTS `blacklistage_systeme` (
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `blacklistage_systeme` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blacklistage_utilisateur_relation`
+-- Structure de la table `blacklistage_utilisateur_relation`
 --
 
 CREATE TABLE IF NOT EXISTS `blacklistage_utilisateur_relation` (
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `blacklistage_utilisateur_relation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `demande_modif_relation`
+-- Structure de la table `demande_modif_relation`
 --
 
 CREATE TABLE IF NOT EXISTS `demande_modif_relation` (
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `demande_modif_relation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `source`
+-- Structure de la table `source`
 --
 
 CREATE TABLE IF NOT EXISTS `source` (
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `source` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test`
+-- Structure de la table `test`
 --
 
 CREATE TABLE IF NOT EXISTS `test` (
@@ -134,26 +134,27 @@ CREATE TABLE IF NOT EXISTS `test` (
   `text` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `test`
+-- Contenu de la table `test`
 --
 
 INSERT INTO `test` (`id`, `num`, `string`, `text`, `date`) VALUES
 (1, 1212, 'aaaaa', 'bbbbbbbbbbbbb', '2015-02-18 23:46:34'),
 (3, 9999, 'helm', 'opps', '2015-02-18 23:46:34'),
-(4, 1, 'aaa', 'Polytech', '2015-02-19 01:13:02'),
+(4, 1, 'aaa', 'Polytech', '2015-03-05 04:52:57'),
 (5, 999, 'ohla', 'www', '2015-02-18 23:46:34'),
 (7, 99999, 'aaa', 'Polytech', '2015-02-19 01:09:09'),
 (8, 99999, 'aaa', 'Polytech', '2015-02-19 01:09:59'),
 (9, 99999, 'aaa', 'Polytech', '2015-02-19 01:10:56'),
-(10, 99999, 'aaa', 'Polytech', '2015-02-19 01:13:02');
+(10, 99999, 'aaa', 'Polytech', '2015-02-19 01:13:02'),
+(11, 99999, 'aaa', 'Polytech', '2015-03-05 04:52:57');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `theme`
+-- Structure de la table `theme`
 --
 
 CREATE TABLE IF NOT EXISTS `theme` (
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `theme_relation`
+-- Structure de la table `theme_relation`
 --
 
 CREATE TABLE IF NOT EXISTS `theme_relation` (
@@ -180,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `theme_relation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
 CREATE TABLE IF NOT EXISTS `utilisateur` (
@@ -195,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `version`
+-- Structure de la table `version`
 --
 
 CREATE TABLE IF NOT EXISTS `version` (
@@ -209,52 +210,52 @@ CREATE TABLE IF NOT EXISTS `version` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `abonnement_relation`
+-- Contraintes pour la table `abonnement_relation`
 --
 ALTER TABLE `abonnement_relation`
   ADD CONSTRAINT `abonnement_relation_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `abonnement_relation_ibfk_2` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
 
 --
--- Constraints for table `alerte_relation`
+-- Contraintes pour la table `alerte_relation`
 --
 ALTER TABLE `alerte_relation`
   ADD CONSTRAINT `alerte_relation_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `alerte_relation_ibfk_2` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
 
 --
--- Constraints for table `blacklistage_systeme`
+-- Contraintes pour la table `blacklistage_systeme`
 --
 ALTER TABLE `blacklistage_systeme`
   ADD CONSTRAINT `blacklistage_systeme_ibfk_1` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
 
 --
--- Constraints for table `blacklistage_utilisateur_relation`
+-- Contraintes pour la table `blacklistage_utilisateur_relation`
 --
 ALTER TABLE `blacklistage_utilisateur_relation`
   ADD CONSTRAINT `blacklistage_utilisateur_relation_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `blacklistage_utilisateur_relation_ibfk_2` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
 
 --
--- Constraints for table `demande_modif_relation`
+-- Contraintes pour la table `demande_modif_relation`
 --
 ALTER TABLE `demande_modif_relation`
   ADD CONSTRAINT `demande_modif_relation_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id`),
   ADD CONSTRAINT `demande_modif_relation_ibfk_2` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
 
 --
--- Constraints for table `theme_relation`
+-- Contraintes pour la table `theme_relation`
 --
 ALTER TABLE `theme_relation`
   ADD CONSTRAINT `theme_relation_ibfk_1` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`),
   ADD CONSTRAINT `theme_relation_ibfk_2` FOREIGN KEY (`id_theme`) REFERENCES `theme` (`id`);
 
 --
--- Constraints for table `version`
+-- Contraintes pour la table `version`
 --
 ALTER TABLE `version`
   ADD CONSTRAINT `version_ibfk_1` FOREIGN KEY (`id_source`) REFERENCES `source` (`id`);
