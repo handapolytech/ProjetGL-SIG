@@ -75,7 +75,7 @@ public class CommonOperation {
 			}
 		}
 		Class<?> c = data.getClass();
-		// Récupérer l'attribut de l'objet data qui prote le nom "name"
+		// Récupérer l'attribut de l'objet data qui porte le nom "name"
 		Field field = c.getDeclaredField(columNames[columNames.length - 1]);
 		if (field.get(data) == null) {
 			sql += "null,";
