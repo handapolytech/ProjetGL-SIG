@@ -1,7 +1,5 @@
-package com.ppsinfo.test;
+package com.ppsinfo.rsig;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -46,7 +44,7 @@ public class HomeController {
 	
 	//Destination: home
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
-    public String login(@Validated User user, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException, SQLException {
+    public String login(@Validated User user, Model model) {
         model.addAttribute("userName", user.getUserName());
         return "user";
     }
