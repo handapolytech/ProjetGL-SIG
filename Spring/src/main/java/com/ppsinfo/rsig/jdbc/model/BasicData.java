@@ -36,5 +36,8 @@ public class BasicData{
 	public  String[] getDefautUpdateColumns() {
 		return defautUpdateColumns;
 	}
-
+	
+	public String toString(){
+		return "basic data";
+	}
 }

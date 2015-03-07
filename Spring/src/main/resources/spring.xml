@@ -6,7 +6,38 @@
     <bean id="testDAO" class="com.ppsinfo.rsig.jdbc.dao.TestDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
-     
+    <bean id="utilisateurDAO" class="com.ppsinfo.rsig.jdbc.dao.UtilisateurDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="sourceDAO" class="com.ppsinfo.rsig.jdbc.dao.SourceDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="themeDAO" class="com.ppsinfo.rsig.jdbc.dao.ThemeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="themeRelationDAO" class="com.ppsinfo.rsig.jdbc.dao.ThemeRelationDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="versionDAO" class="com.ppsinfo.rsig.jdbc.dao.VersionDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="abonnementRelationDAO" class="com.ppsinfo.rsig.jdbc.dao.AbonnementRelationDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="alerteRelationDAO" class="com.ppsinfo.rsig.jdbc.dao.AlerteRelationDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="blacklistageSystemeDAO" class="com.ppsinfo.rsig.jdbc.dao.BlacklistageSystemeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="blacklistageUtilisateurRelationDAO" class="com.ppsinfo.rsig.jdbc.dao.BlacklistageUtilisateurRelationDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="demandeModifRelationDAO" class="com.ppsinfo.rsig.jdbc.dao.DemandeModifRelationDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/sig" />

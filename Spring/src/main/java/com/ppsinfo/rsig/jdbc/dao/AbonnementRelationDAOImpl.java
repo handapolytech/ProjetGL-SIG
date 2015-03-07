@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import com.ppsinfo.rsig.jdbc.model.BasicData;
-import com.ppsinfo.rsig.jdbc.model.Test;
+import com.ppsinfo.rsig.jdbc.model.*;
 
-public class TestDAOImpl implements TestDAO {
+public class AbonnementRelationDAOImpl implements AbonnementRelationDAO {
 
 	private DataSource dataSource;
 
@@ -17,9 +16,9 @@ public class TestDAOImpl implements TestDAO {
 	}
 
 	@Override
-	public Test selectById(int id) throws InstantiationException,
+	public AbonnementRelation selectById(int id) throws InstantiationException,
 			IllegalAccessException {
-		return CommonOperation.selectById(id, dataSource, Test.class);
+		return CommonOperation.selectById(id, dataSource, AbonnementRelation.class);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class TestDAOImpl implements TestDAO {
 
 	@Override
 	public int deleteById(int id) throws SQLException {
-		return CommonOperation.deleteById(new Test().tableName, id, dataSource);
+		return CommonOperation.deleteById(new AbonnementRelation().tableName, id, dataSource);
 	}
 
 	@Override
@@ -41,16 +40,16 @@ public class TestDAOImpl implements TestDAO {
 	}
 
 	@Override
-	public ArrayList<Test> selectAll() throws InstantiationException,
+	public ArrayList<AbonnementRelation> selectAll() throws InstantiationException,
 			IllegalAccessException, NoSuchFieldException, SecurityException {
-		return CommonOperation.selectAll(Test.class, dataSource);
+		return CommonOperation.selectAll(AbonnementRelation.class, dataSource);
 	}
 
 	@Override
-	public ArrayList<Test> selectWhere(String condition)
+	public ArrayList<AbonnementRelation> selectWhere(String condition)
 			throws InstantiationException, IllegalAccessException,
 			NoSuchFieldException, SecurityException {
-		return CommonOperation.selectWhere(Test.class, condition, dataSource);
+		return CommonOperation.selectWhere(AbonnementRelation.class, condition, dataSource);
 	}
 
 	

@@ -58,13 +58,18 @@ public class CommonOperation {
 				Field field = c.getDeclaredField(columNames[i]);
 				if (field.get(data) == null) {
 					sql += "null,";
+				} else if (field.get(data).getClass().equals(Date.class)) {
+					// Formater la date pour adapter au DateFormat de SQL
+					DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					sql += "'" + df.format((Date) field.get(data)) + "',";
+
 				} else {
 					sql += "'" + field.get(data) + "',";
 				}
 			}
 		}
 		Class<?> c = data.getClass();
-		// Récupérer l'attribut de l'objet data qui porte le nom "name"
+		// Traiter la date
 		Field field = c.getDeclaredField(columNames[columNames.length - 1]);
 		if (field.get(data) == null) {
 			sql += "null,";
