@@ -52,6 +52,17 @@ public class BlacklistageSystemeDAOImpl implements BlacklistageSystemeDAO {
 		return CommonOperation.selectWhere(BlacklistageSysteme.class, condition, dataSource);
 	}
 
+	@Override
+	public ArrayList<Integer> idSourceList() throws InstantiationException,
+			IllegalAccessException, NoSuchFieldException, SecurityException {
+		ArrayList<Integer> alIdSource = new ArrayList<Integer>();
+		ArrayList<BlacklistageSysteme> al= this.selectAll();
+		for (BlacklistageSysteme blc : al) {
+			alIdSource.add(blc.id_source);
+		}
+		return alIdSource;
+	}
+
 	
 
 }

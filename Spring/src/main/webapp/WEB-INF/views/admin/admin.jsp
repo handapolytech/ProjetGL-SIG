@@ -38,9 +38,6 @@
    <!-- Theme --><br>
    <a href="/rsig/admin/theme/consulter">Theme-Consulter</a><br>
    <a href="/rsig/admin/theme/ajout">Theme-Ajouter</a><br>
-   <!-- Blacklistage --><br>
-   <a href="/rsig/admin/blacklisteSys/ajout">Blacklistage_Systeme-Ajouter</a><br>
-   <a href="/rsig/admin/blacklisteSys/consulter">Blacklistage_Systeme-Consulter</a><br>
    <!-- Ici on peut ajouter des nouvelles fonctionnalités si necessaires -->
    <!-- Alerte-Utilisateur --><br>
    <a href="/rsig/admin/alretUtilisateur/ajout">Alerte-Utilisateur-Ajouter</a><br>

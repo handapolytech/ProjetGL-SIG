@@ -9,8 +9,6 @@ ${msgInfo}
 <h1>
 	Détail
 </h1>
-<!-- Attention, ici on part de la page modif, le chemin est relatif
- donc il ne faut pas ajouter admin/source-->
 Thèmes:<br>
 <ul style="list-style-type:disc">
 <c:forEach items="${themes}" var="theme">
@@ -27,8 +25,11 @@ Associer à un theme <select name="id_theme_associer">
 <input type="submit" value="Associer">
 </form></li>
 </ul>
+<!-- Attention, ici on part de la page modif, le chemin est relatif
+ donc il ne faut pas ajouter admin/source-->
 <form action="modif" method="post">
 id: <input type="number" name="id" value="${id}" readonly><br>
+Masqué: <input type="checkbox" name="masquer" value="1" ${masquer}><br>
 URL Fournisseur: <input type="url" name="url_fournisseur" value="${url_fournisseur}"><br>
 Titre: <input type="text" name="titre" value="${titre}"><br>
 Niveau: <input type="text" name="niveau" value="${niveau}"><br>

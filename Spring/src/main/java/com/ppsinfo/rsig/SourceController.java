@@ -70,7 +70,7 @@ public class SourceController {
 	 */
 	@RequestMapping(value = "/admin/source/modif", method = RequestMethod.POST)
 	public ModelAndView sourceAjoutModif(
-			@Validated com.ppsinfo.rsig.jdbc.model.Source source, Model model)
+			@Validated com.ppsinfo.rsig.jdbc.model.Source source, Model model, HttpServletRequest request)
 			throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, SQLException,
 			InstantiationException {
@@ -91,6 +91,18 @@ public class SourceController {
 			// update
 			sourceDAO.update(source);
 			model.addAttribute("msgInfo", "<p>Modification éffectuée</p>");
+			//Traiter le blacklistage
+			BlacklistageSystemeDAO blcDao = ctx.getBean("blacklistageSystemeDAO", BlacklistageSystemeDAO.class);
+			ArrayList<BlacklistageSysteme> alBlc = (ArrayList<BlacklistageSysteme>) blcDao.selectWhere("id_source="+source.id);
+			if (request.getParameter("masquer")!=null) {
+				if (alBlc.size()==0) {
+					blcDao.insert(new BlacklistageSysteme(0, source.id));
+				}
+			}else {
+				if (alBlc.size()>0) {
+					blcDao.deleteById(alBlc.get(0).id);
+				}
+			}
 		}
 		//Ajouter les alerte
 		ArrayList<AlerteRelation> alAlerte = new ArrayList<AlerteRelation>();
@@ -117,6 +129,8 @@ public class SourceController {
 		return pageModif(model, source, trDAO, ctx);
 	}
 
+	
+	
 	// Afficher le détail
 	@RequestMapping(value = "/admin/source/modif", method = RequestMethod.GET)
 	public ModelAndView sourceDetail(@RequestParam("id") int id, Model model)
@@ -280,6 +294,14 @@ public class SourceController {
 		model.addAttribute("projection", source.getProjection());
 		model.addAttribute("periodicite", source.getPeriodicite());
 		model.addAttribute("description", source.getDescription());
+		//check box "masqué"
+		BlacklistageSystemeDAO blcDAO = ctx.getBean("blacklistageSystemeDAO", BlacklistageSystemeDAO.class);
+		ArrayList<BlacklistageSysteme> alBlc = (ArrayList<BlacklistageSysteme>) blcDAO.selectWhere("id_source="+source.id);
+		if (alBlc.size()>0) {
+			model.addAttribute("masquer", "checked");
+		}else {
+			model.addAttribute("masquer", "");
+		}
 		// Mettre les deux ArrayList dans un map
 		Map<String, Object> modelsMap = new HashMap<String, Object>();
 		modelsMap.put("themes", alTheme);
