@@ -1,0 +1,104 @@
+body {
+  padding-top: 60px;
+}
+
+.nav .nav-breadcrumb {
+    margin: 7px;
+    color : #FFF;
+}
+
+.nav-breadcrumb a {
+    color : #00B2FE;
+}
+
+@media (min-width: 768px) {
+    .nav .nav-breadcrumb {
+        float: left;
+        margin: 7px 10px;
+    }
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+/* uncomment this section to make the sidebar un-pin
+.affix-top {
+	top:60px;
+    position:fixed;
+}
+
+.affix {
+    position:static;
+}
+*/
+
+.affix-top {
+	top:60px;
+    position:fixed;
+}
+
+/* custom theme */
+    
+#midCol.affix-top {
+    position:fixed;
+  	margin-left:-18px;
+  	margin-right:10px;
+}
+
+#midCol.affix-bottom {
+	position:static;
+}
+
+#midCol.affix {
+    position:static;
+}
+
+@media (max-width:1190px) {
+  .affix,.affix-top,#midCol.affix,#midCol.affix-top {
+      position:static;
+  }
+}
+
+.caption {
+	background-color:#eee;
+  	padding:10px;
+    margin:0;
+	color:#555;
+}
+
+.inline-form input {
+  display: inline-block;
+  width: 100px;
+}
+
+.footer {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+	background-color:#222;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+	height: 80px; /* .push must be the same height as .footer */
+}
+
+.article-condense {
+	display: inline-block;
+}
