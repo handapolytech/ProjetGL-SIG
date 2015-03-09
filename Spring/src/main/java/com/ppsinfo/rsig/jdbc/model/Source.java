@@ -43,6 +43,86 @@ public class Source extends BasicData {
 		this.description = description;
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getUrl_fournisseur() {
+		return url_fournisseur;
+	}
+
+
+	public void setUrl_fournisseur(String url_fournisseur) {
+		this.url_fournisseur = url_fournisseur;
+	}
+
+
+	public String getTitre() {
+		return titre;
+	}
+
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+
+	public String getNiveau() {
+		return niveau;
+	}
+
+
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
+	}
+
+
+	public String getZone() {
+		return zone;
+	}
+
+
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+
+
+	public String getProjection() {
+		return projection;
+	}
+
+
+	public void setProjection(String projection) {
+		this.projection = projection;
+	}
+
+
+	public int getPeriodicite() {
+		return periodicite;
+	}
+
+
+	public void setPeriodicite(int periodicite) {
+		this.periodicite = periodicite;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	
 
 }

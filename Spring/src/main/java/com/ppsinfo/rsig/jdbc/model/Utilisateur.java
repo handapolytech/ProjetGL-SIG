@@ -36,6 +36,46 @@ public class Utilisateur extends BasicData{
 				+ ", role=" + role + ", alert_frequence=" + alert_frequence
 				+ "]";
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public int getAlert_frequence() {
+		return alert_frequence;
+	}
+
+	public void setAlert_frequence(int alert_frequence) {
+		this.alert_frequence = alert_frequence;
+	}
 	
 	
 }

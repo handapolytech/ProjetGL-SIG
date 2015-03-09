@@ -52,6 +52,16 @@ public class ThemeDAOImpl implements ThemeDAO {
 		return CommonOperation.selectWhere(Theme.class, condition, dataSource);
 	}
 
+	@Override
+	public ArrayList<Integer> idList() throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		ArrayList<Integer> alId = new ArrayList<Integer>();
+		ArrayList<Theme> alThemes = this.selectAll();
+		for (Theme theme : alThemes) {
+			alId.add(theme.id);
+		}
+		return alId;
+	}
+
 	
 
 }

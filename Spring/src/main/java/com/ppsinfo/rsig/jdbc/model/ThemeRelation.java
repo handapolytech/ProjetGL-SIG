@@ -23,6 +23,36 @@ public class ThemeRelation extends BasicData{
 		this.id_source = id_source;
 		this.id_theme = id_theme;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_source() {
+		return id_source;
+	}
+
+	public void setId_source(int id_source) {
+		this.id_source = id_source;
+	}
+
+	public int getId_theme() {
+		return id_theme;
+	}
+
+	public void setId_theme(int id_theme) {
+		this.id_theme = id_theme;
+	}
+
+	@Override
+	public String toString() {
+		return "ThemeRelation [id=" + id + ", id_source=" + id_source
+				+ ", id_theme=" + id_theme + "]";
+	}
 	
 	
 	

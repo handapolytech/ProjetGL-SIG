@@ -33,4 +33,53 @@ public class Version extends BasicData {
 		this.date_creation_fournisseur = date_creation_fournisseur;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_source() {
+		return id_source;
+	}
+
+	public void setId_source(int id_source) {
+		this.id_source = id_source;
+	}
+
+	public String getUrl_serveur() {
+		return url_serveur;
+	}
+
+	public void setUrl_serveur(String url_serveur) {
+		this.url_serveur = url_serveur;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public Date getDate_creation_fournisseur() {
+		return date_creation_fournisseur;
+	}
+
+	public void setDate_creation_fournisseur(Date date_creation_fournisseur) {
+		this.date_creation_fournisseur = date_creation_fournisseur;
+	}
+
+	@Override
+	public String toString() {
+		return "Version [id=" + id + ", id_source=" + id_source
+				+ ", url_serveur=" + url_serveur + ", version=" + version
+				+ ", date_creation_fournisseur=" + date_creation_fournisseur
+				+ "]";
+	}
+
+	
 }

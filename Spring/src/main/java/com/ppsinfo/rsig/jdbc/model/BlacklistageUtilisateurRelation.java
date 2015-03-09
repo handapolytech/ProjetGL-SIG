@@ -25,5 +25,36 @@ public class BlacklistageUtilisateurRelation extends BasicData {
 		this.id_source = id_source;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_utilisateur() {
+		return id_utilisateur;
+	}
+
+	public void setId_utilisateur(int id_utilisateur) {
+		this.id_utilisateur = id_utilisateur;
+	}
+
+	public int getId_source() {
+		return id_source;
+	}
+
+	public void setId_source(int id_source) {
+		this.id_source = id_source;
+	}
+
+	@Override
+	public String toString() {
+		return "BlacklistageUtilisateurRelation [id=" + id
+				+ ", id_utilisateur=" + id_utilisateur + ", id_source="
+				+ id_source + "]";
+	}
+
 
 }

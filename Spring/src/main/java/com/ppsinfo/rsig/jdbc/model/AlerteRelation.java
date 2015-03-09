@@ -13,6 +13,8 @@ public class AlerteRelation extends BasicData {
 	public static final String fieldType = "type";
 	public static final String fieldStatut = "statut";
 	public static final String fieldDescription = "description";
+	
+	public static final int defautValuePeriodicite = 7;
 
 	public int id;
 	public int id_utilisateur;
@@ -54,6 +56,78 @@ public class AlerteRelation extends BasicData {
 				+ priorite + ", date=" + date + ", sujet=" + sujet + ", type="
 				+ type + ", statut=" + statut + ", description=" + description
 				+ "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_utilisateur() {
+		return id_utilisateur;
+	}
+
+	public void setId_utilisateur(int id_utilisateur) {
+		this.id_utilisateur = id_utilisateur;
+	}
+
+	public int getId_source() {
+		return id_source;
+	}
+
+	public void setId_source(int id_source) {
+		this.id_source = id_source;
+	}
+
+	public int getPriorite() {
+		return priorite;
+	}
+
+	public void setPriorite(int priorite) {
+		this.priorite = priorite;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getSujet() {
+		return sujet;
+	}
+
+	public void setSujet(String sujet) {
+		this.sujet = sujet;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatut() {
+		return statut;
+	}
+
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	

@@ -19,6 +19,28 @@ public class BlacklistageSysteme extends BasicData {
 		this.id = id;
 		this.id_source = id_source;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId_source() {
+		return id_source;
+	}
+
+	public void setId_source(int id_source) {
+		this.id_source = id_source;
+	}
+
+	@Override
+	public String toString() {
+		return "BlacklistageSysteme [id=" + id + ", id_source=" + id_source
+				+ "]";
+	}
 	
 
 

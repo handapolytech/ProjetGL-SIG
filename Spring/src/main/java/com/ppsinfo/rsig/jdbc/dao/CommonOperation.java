@@ -72,7 +72,7 @@ public class CommonOperation {
 		// Traiter la date
 		Field field = c.getDeclaredField(columNames[columNames.length - 1]);
 		if (field.get(data) == null) {
-			sql += "null,";
+			sql += "null";
 		} else if (field.get(data).getClass().equals(Date.class)) {
 			// Formater la date pour adapter au DateFormat de SQL
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -124,41 +124,45 @@ public class CommonOperation {
 				+ " WHERE id = ?";
 		// using RowMapper anonymous class, we can create a separate RowMapper
 		// for reuse
-		instanceData = jdbcTemplate.queryForObject(sql, new Object[] { id },
-				new RowMapper<T>() {
+		try {
+			instanceData = jdbcTemplate.queryForObject(sql, new Object[] { id },
+					new RowMapper<T>() {
 
-					@Override
-					public T mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						T t;
-						try {
-							t = classT.newInstance();
-							for (String columnName : columnNames) {
-								Field field = classT
-										.getDeclaredField(columnName);
-								field.set(t, rs.getObject(columnName));
+						@Override
+						public T mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							T t;
+							try {
+								t = classT.newInstance();
+								for (String columnName : columnNames) {
+									Field field = classT
+											.getDeclaredField(columnName);
+									field.set(t, rs.getObject(columnName));
+								}
+								return t;
+							} catch (InstantiationException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								return null;
+							} catch (IllegalAccessException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								return null;
+							} catch (NoSuchFieldException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								return null;
+							} catch (SecurityException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								return null;
 							}
-							return t;
-						} catch (InstantiationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return null;
-						} catch (IllegalAccessException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return null;
-						} catch (NoSuchFieldException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return null;
-						} catch (SecurityException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return null;
 						}
-					}
-				});
-		return instanceData;
+					});
+			return instanceData;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/**
