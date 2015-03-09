@@ -2,15 +2,15 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Consulter les Themes</title>
+	<title>Consulter les thèmes</title>
 </head>
 <body>
 ${msgInfo}
 <h1>
-	Liste des themes
+	Liste des thèmes
 </h1>
 <table>
-	<tr><th>id</th><th>Nom du theme</th><th>Détail</th></tr>
+	<tr><th>id</th><th>Thème</th><th>Détail</th></tr>
 	<c:forEach items="${themes}" var="theme">
 		<tr>
 				<td><c:out value = "${theme.id}" /></td>

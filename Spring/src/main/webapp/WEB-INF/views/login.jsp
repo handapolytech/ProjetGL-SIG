@@ -10,6 +10,7 @@
 <form action="home" method="post">
 <input type="text" name="userName"><br>
 <input type="submit" value="Login">
+<input type="date" name="d">
 </form>
 </body>
 </html>

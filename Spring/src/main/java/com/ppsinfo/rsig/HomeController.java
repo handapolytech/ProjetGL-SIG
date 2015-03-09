@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ppsinfo.rsig.jdbc.dao.TestDAO;
 import com.ppsinfo.rsig.jdbc.model.Test;
@@ -56,8 +57,9 @@ public class HomeController {
 	
 	//Destination: home
 	@RequestMapping(value = "/home", method = RequestMethod.POST)
-    public String login(@Validated User user, Model model) {
+    public String login(@Validated User user, @RequestParam("d") String d,Model model) {
         model.addAttribute("userName", user.getUserName());
+        model.addAttribute("date", d);
         return "user";
     }
 	

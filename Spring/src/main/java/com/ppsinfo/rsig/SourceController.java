@@ -45,10 +45,7 @@ public class SourceController {
 			InstantiationException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"spring.xml");
-		SourceDAO sourceDAO = ctx.getBean("sourceDAO", SourceDAO.class);
-		// Récupérer la liste des sources et le transmettre à la page
-		ArrayList<Source> alSource = (ArrayList<Source>) sourceDAO.selectAll();
-		return new ModelAndView("admin/source/consulter", "sources", alSource);
+		return pageConsulter(ctx, model);
 	}
 
 	//Page pour ajouter une source (formulaire)
@@ -309,7 +306,34 @@ public class SourceController {
 		return new ModelAndView("admin/source/modif", modelsMap);
 	}
 	
-	//
+	
+	// Utilisable pour afficher la liste ds sources
+	ModelAndView pageConsulter(ClassPathXmlApplicationContext ctx, Model model) throws InstantiationException,
+			IllegalAccessException, NoSuchFieldException, SecurityException {
+		SourceDAO sourceDAO = ctx.getBean("sourceDAO", SourceDAO.class);
+		// Récupérer la liste des sources et le transmettre à la page
+		ArrayList<Source> alSource = new ArrayList<Source>();
+		ArrayList<Source> alSourceComplet = (ArrayList<Source>) sourceDAO.selectAll();
+		BlacklistageSystemeDAO blcDAO = ctx.getBean("blacklistageSystemeDAO", BlacklistageSystemeDAO.class);
+		ArrayList<Integer> alIdSourceM = blcDAO.idSourceList();
+		for (Source source : alSourceComplet) {
+			if (!alIdSourceM.contains(source.id)) {
+				alSource.add(source);
+			}
+		}
+		ArrayList<Source> alSourceM = new ArrayList<Source>();
+		for (int i : alIdSourceM) {
+			alSourceM.add((Source) sourceDAO.selectById(i));
+		}
+		model.addAttribute("msgInfo","---"+alSource.size());
+		// Mettre les deux ArrayList dans un map
+		Map<String, Object> modelsMap = new HashMap<String, Object>();
+		modelsMap.put("sources", alSource);
+		modelsMap.put("sourcesMasquees", alSourceM);
+		return new ModelAndView("admin/source/consulter", modelsMap);
+	}
+	
+	//Consulter la liste des sources
 	@RequestMapping(value = "/admin/source/consulter", method = RequestMethod.GET)
 	public ModelAndView sourceConsulter(HttpServletRequest request,
 			HttpServletResponse response, Model model)
@@ -318,10 +342,9 @@ public class SourceController {
 			InstantiationException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"spring.xml");
-		SourceDAO sourceDAO = ctx.getBean("sourceDAO", SourceDAO.class);
-		// Récupérer la liste des sources et le transmettre à la page
-		ArrayList<Source> alSource = (ArrayList<Source>) sourceDAO.selectAll();
-		return new ModelAndView("admin/source/consulter", "sources", alSource);
+		BlacklistageSystemeDAO blcDAO = ctx.getBean("blacklistageSystemeDAO", BlacklistageSystemeDAO.class);
+		ArrayList<Integer> alIdSourceM = blcDAO.idSourceList();
+		return pageConsulter(ctx,model);
 	}
 
 	//Supprimer une source
@@ -360,8 +383,7 @@ public class SourceController {
 						"Erreur suppression: Aucune source a pour id " + id);
 			}
 		}
-		ArrayList<Source> alSource = (ArrayList<Source>) sourceDAO.selectAll();
-		return new ModelAndView("admin/source/consulter", "sources", alSource);
+		return pageConsulter(ctx,model);
 	}
 
 }

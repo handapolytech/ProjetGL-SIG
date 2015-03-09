@@ -40,10 +40,10 @@
    <a href="/rsig/admin/theme/ajout">Theme-Ajouter</a><br>
    <!-- Ici on peut ajouter des nouvelles fonctionnalités si necessaires -->
    <!-- Alerte-Utilisateur --><br>
-   <a href="/rsig/admin/alretUtilisateur/ajout">Alerte-Utilisateur-Ajouter</a><br>
-   <a href="/rsig/admin/alretUtilisateur/consulter">Alerte-Utilisateur-Consulter</a><br>
+   <a href="/rsig/admin/alerterelation/ajout">Alerte-Utilisateur-Ajouter</a><br>
+   <a href="/rsig/admin/alerterelation/consulter">Alerte-Utilisateur-Consulter</a><br>
    <!-- Autres --><br>
-   <a href="/rsig/admin/alretUtilisateur/consulter">Liste-Demande-Modif-Consulter</a><br>
+   <a href="/rsig/admin/demandemodif/consulter">Liste-Demande-Modif-Consulter</a><br>
 
 
 
