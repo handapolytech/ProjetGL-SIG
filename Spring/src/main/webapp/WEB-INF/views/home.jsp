@@ -9,7 +9,7 @@
 
 			<!-- Bootstrap -->
 			<link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
-			<link href="<c:url value="assets/css/main.css" />" rel="stylesheet">
+			<link href="<c:url value="/resources/assets/css/main.css" />" rel="stylesheet">
 	</head>
 	<body>
 		<!-- Barre d'entête -->
@@ -216,7 +216,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-2">
-						<img src="img/logo_UPSUD.png" alt="Logo de l'Université Paris-Sud" height="80px">
+						<img src="${pageContext.request.contextPath}/resources/img/logo_UPSUD.png" alt="Logo de l'Université Paris-Sud" height="80px">
 					</div>
 					<div class="col-md-8 footer-center">
 						<p class="text-muted">
@@ -228,16 +228,16 @@
 						<P>  The time on the server is ${serverTime}. </P>
 					</div>
 					<div class="col-md-2">
-						<img src="img/logo_BOUYGUES.jpg" alt="Logo de Bouygues Energies & Services" height="80px">
+						<img src="${pageContext.request.contextPath}/resources/img/logo_BOUYGUES.jpg" alt="Logo de Bouygues Energies & Services" height="80px">
 					</div>
 				</div>
 			</div>
 		</footer>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="<c:url value="js/jquery.min.js" />"></script>
+		<script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="<c:url value="js/bootstrap.min.js" />"></script>
-		<script src="<c:url value="assets/js/pagination.js" />"></script>
+		<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+		<script src="<c:url value="/resources/assets/js/pagination.js" />"></script>
 	</body>
 </html>
