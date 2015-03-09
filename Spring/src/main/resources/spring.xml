@@ -44,5 +44,7 @@
         <property name="username" value="root" />
         <property name="password" value="" />
     </bean>
- 
+    
+    <mvc:resources mapping="/resources/**" location="/resources/themeWeb/" />
+    
 </beans>
