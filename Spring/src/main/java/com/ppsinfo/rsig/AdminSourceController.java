@@ -1,5 +1,6 @@
 package com.ppsinfo.rsig;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -299,10 +300,16 @@ public class AdminSourceController {
 		}else {
 			model.addAttribute("masquer", "");
 		}
+		//Liste des version
+		VersionDAO versionDAO = ctx.getBean("versionDAO",VersionDAO.class);
+		ArrayList<Version> alVersion = (ArrayList<Version>) versionDAO.selectWhere(Version.fieldIdSource+"="+source.id);
+		
+		
 		// Mettre les deux ArrayList dans un map
 		Map<String, Object> modelsMap = new HashMap<String, Object>();
 		modelsMap.put("themes", alTheme);
 		modelsMap.put("idThemes", alIdThemeRest);
+		modelsMap.put("versions", alVersion);
 		return new ModelAndView("admin/source/modif", modelsMap);
 	}
 	
@@ -385,5 +392,45 @@ public class AdminSourceController {
 		}
 		return pageConsulter(ctx,model);
 	}
+	
+	/** Bloc version **/
+	//Affichage du détail avec id passé par GET
+	@RequestMapping(value = "/admin/version/modif", method = RequestMethod.GET)
+    public ModelAndView versionDetail(@RequestParam("id")int id,Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+		VersionDAO versionDAO = ctx.getBean("versionDAO", VersionDAO.class);
+        Version version = (Version) versionDAO.selectById(id);
+		if (version == null) {
+			model.addAttribute("msgInfo", "Erreur selection: Aucune version a pour id "+version.getId());
+			return pageConsulter(ctx,model);
+		}else {
+	        return new ModelAndView("admin/version/modif","version",version);
+		}
+    }
+	
+	//Traiter la suppression
+	@RequestMapping(value = "/admin/source/suppr_version", method = RequestMethod.GET)
+    public ModelAndView sourcSuppr(@RequestParam("id")int id,@RequestParam("id_source")int id_source,Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+		VersionDAO versionDAO = ctx.getBean("versionDAO", VersionDAO.class);
+        Version version = (Version) versionDAO.selectById(id);
+		if (version == null) {
+			model.addAttribute("msgInfo", "Erreur suppression: Aucune version a pour id "+id);
+		}else {
+			if (versionDAO.deleteById(id)>0) {
+				model.addAttribute("msgInfo", "Suppression réussie: Le version pour l'id "+id+" a été supprimée ");
+			}else {
+				model.addAttribute("msgInfo", "Erreur suppression: Aucune version a pour id "+id);
+			}
+			//Supprimer le fichier
+			File file = new File(version.url_serveur);
+			file.delete();
+		}
+		SourceDAO sourceDAO = ctx.getBean("sourceDAO",SourceDAO.class);
+		Source source = (Source) sourceDAO.selectById(id_source);
+		ThemeRelationDAO trDAO = ctx.getBean("themeRelationDAO",
+				ThemeRelationDAO.class);
+		return pageModif(model, source, trDAO, ctx); 
+    }
 
 }

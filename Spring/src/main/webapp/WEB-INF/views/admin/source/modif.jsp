@@ -41,5 +41,23 @@ Description: <input type="text" name="description" value="${description}"><br>
 </form>
 <form action="suppr" method ="get"><input type="hidden" name="id" value="${id}"><br><input type="submit" value="Supprimer"></form>
 
+<h2>Versions</h2>
+<table>
+<tr><th>ID</th><th>URL Serveur</th><th>version</th><th>Date création</th><th>Détail</th></tr>
+<c:forEach items="${versions}" var="version">
+	<tr>
+		<td><c:out value = "${version.id}" /></td>
+		<td><c:out value = "${version.url_serveur}" /></td>
+		<td><c:out value = "${version.version}" /></td>
+		<td><c:out value = "${version.date_creation_fournisseur}" /></td>
+		<td><a href="../version/modif?id=<c:out value = "${version.id}" />"><c:out value = "${version.id}" /></a></td>
+	</tr>
+</c:forEach>
+</table>
+<form action="../version/ajout" method="get">
+<input type="hidden" name="id_source" value="${id}">
+<input type="submit" value="Ajouter une version">
+</form>
+
 </body>
 </html>

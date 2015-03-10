@@ -188,10 +188,15 @@ public class UserSourceController {
 		}else {
 			model.addAttribute("abonner", "");
 		}
+		//Liste des version
+				VersionDAO versionDAO = ctx.getBean("versionDAO",VersionDAO.class);
+				ArrayList<Version> alVersion = (ArrayList<Version>) versionDAO.selectWhere(Version.fieldIdSource+"="+source.id);
+				
 		// Mettre les deux ArrayList dans un map
 		Map<String, Object> modelsMap = new HashMap<String, Object>();
 		modelsMap.put("themes", alTheme);
 		modelsMap.put("idThemes", alIdThemeRest);
+		modelsMap.put("versions", alVersion);
 		return new ModelAndView("user/source/modif", modelsMap);
 	}
 	
@@ -234,6 +239,18 @@ public class UserSourceController {
 		return pageConsulter(ctx,model);
 	}
 
-	
+		//Affichage du détail avec id passé par GET
+		@RequestMapping(value = "/user/version/modif", method = RequestMethod.GET)
+	    public ModelAndView versionDetail(@RequestParam("id")int id,Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
+			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+			VersionDAO versionDAO = ctx.getBean("versionDAO", VersionDAO.class);
+	        Version version = (Version) versionDAO.selectById(id);
+			if (version == null) {
+				model.addAttribute("msgInfo", "Erreur selection: Aucune version a pour id "+version.getId());
+				return pageConsulter(ctx,model);
+			}else {
+		        return new ModelAndView("user/version/modif","version",version);
+			}
+	    }
 
 }

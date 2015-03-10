@@ -1,11 +1,14 @@
 package com.ppsinfo.rsig.jdbc.dao;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
 import com.ppsinfo.rsig.jdbc.model.*;
+import com.ppsinfo.rsig.util.HttpDownloadUtility;
 
 public class VersionDAOImpl implements VersionDAO {
 
@@ -50,6 +53,12 @@ public class VersionDAOImpl implements VersionDAO {
 			throws InstantiationException, IllegalAccessException,
 			NoSuchFieldException, SecurityException {
 		return CommonOperation.selectWhere(Version.class, condition, dataSource);
+	}
+
+	@Override
+	public boolean downloadVersion(String url, String cheminRep) throws IOException {
+		new File(cheminRep).mkdirs();
+		return HttpDownloadUtility.downloadFile(url, cheminRep);
 	}
 
 	
