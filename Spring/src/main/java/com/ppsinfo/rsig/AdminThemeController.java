@@ -41,6 +41,7 @@ public class AdminThemeController {
         return new ModelAndView("admin/theme/consulter","themes",alTheme);	
     }
 	
+	//Formulaire pour ajouter
 	@RequestMapping(value = "/admin/theme/ajout", method = RequestMethod.GET)
     public String sourceAjout(HttpServletRequest request,HttpServletResponse response, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
 		return "admin/theme/ajout";	
@@ -71,6 +72,7 @@ public class AdminThemeController {
         return "admin/theme/modif";
     }
 	
+	//Affichage du détail avec id passé par GET
 	@RequestMapping(value = "/admin/theme/modif", method = RequestMethod.GET)
     public String themeDetail(@RequestParam("id")int id,Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -87,6 +89,7 @@ public class AdminThemeController {
 		}
     }
 	
+	//Pour retourner la page de la liste
 	@RequestMapping(value = "/admin/theme/consulter", method = RequestMethod.GET)
     public ModelAndView themeConsulter(HttpServletRequest request,HttpServletResponse response, Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -96,6 +99,7 @@ public class AdminThemeController {
         return new ModelAndView("admin/theme/consulter","themes",alTheme);
     }
 	
+	//Traiter la suppression
 	@RequestMapping(value = "/admin/theme/suppr", method = RequestMethod.GET)
     public ModelAndView sourcSuppr(@RequestParam("id")int id,Model model) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, SQLException, InstantiationException {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");

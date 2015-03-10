@@ -52,6 +52,43 @@ public class AbonnementRelationDAOImpl implements AbonnementRelationDAO {
 		return CommonOperation.selectWhere(AbonnementRelation.class, condition, dataSource);
 	}
 
+	@Override
+	public ArrayList<Integer> listeIdSourceByIdUtilisateur(int idu) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		ArrayList<Integer> alId = new ArrayList<Integer>();
+		ArrayList<AbonnementRelation> alAR = CommonOperation.selectWhere(AbonnementRelation.class, "id_utilisateur="+idu, dataSource);
+		for (AbonnementRelation abonnementRelation : alAR) {
+			alId.add(abonnementRelation.id_source);
+		}
+		return alId;
+	}
+
+	@Override
+	public ArrayList<Source> listSourceByIdUtilisateur(int idu) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		ArrayList<Source> alSource = new ArrayList<Source>();
+		ArrayList<AbonnementRelation> alAR = CommonOperation.selectWhere(AbonnementRelation.class, "id_utilisateur="+idu, dataSource);
+		for (AbonnementRelation abonnementRelation : alAR) {
+			alSource.add(CommonOperation.selectById(abonnementRelation.id_source, dataSource, Source.class));
+		}
+		return alSource;
+	}
+
+	@Override
+	public ArrayList<Source> listSourceByIdUtilisateurAvecMasquage(int idu)
+			throws InstantiationException, IllegalAccessException,
+			NoSuchFieldException, SecurityException {
+		ArrayList<Source> alSource = listSourceByIdUtilisateur(idu);
+		BlacklistageSystemeDAOImpl blcDAO = new BlacklistageSystemeDAOImpl();
+		blcDAO.setDataSource(dataSource);
+		ArrayList<Integer> alIdSourceMasquee = blcDAO.idSourceList();
+		ArrayList<Source> result= new ArrayList<Source>();
+		for (Source source : alSource) {
+			if (!alIdSourceMasquee.contains(source.id)) {
+				result.add(source);
+			}
+		}
+		return result;
+	}
+
 	
 
 }

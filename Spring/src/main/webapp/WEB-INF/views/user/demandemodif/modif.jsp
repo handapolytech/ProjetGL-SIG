@@ -17,13 +17,9 @@ Utilisateur: <input name="id_utilisateur" value="${demandeModifRelation.id_utili
 <input name="id_source" type="hidden" value="${demandeModifRelation.id_source}">
 Date:<input type="text" name="date" value="${demandeModifRelation.date}" readonly><br>
 Type:<input type="text" name="type" value="${demandeModifRelation.type}"><br>
-Description:<input type="text" name="description" value="${demandeModifRelation.description}">
+Statut:<input type="text" name="statut" value="${demandeModifRelation.statut}"><br>
+Description:<input type="text" name="description" value="${demandeModifRelation.description}"><br>
 </form>
-<form action="changer_statut" method ="get">
-<input name="id" type="hidden" value="${demandeModifRelation.id}">
-Statut:<input type="text" name="statut" value="${demandeModifRelation.statut}"><input type="submit" value="Changer">
-</form>
-<form action="suppr" method ="get"><input type="hidden" name="id" value="${demandeModifRelation.id}"><br><input type="submit" value="Supprimer"></form>
 
 </body>
 </html>
