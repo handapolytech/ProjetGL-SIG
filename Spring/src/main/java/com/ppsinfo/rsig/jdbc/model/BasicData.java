@@ -10,7 +10,7 @@ public class BasicData{
 	/**
 	 * Constructeur à récrire dans chaque sous classe pour mettre valeurs aux
 	 * attributs static Attention, le seul cas où ce constructeur est autorisé à
-	 * applé en hors des classes dataStructure est qaund on a besoin de créer
+	 * être appelé en dehors des classes dataStructure est quand on a besoin de créer
 	 * une donnée "vide" puis compléter son contenu par des resultSet
 	 * 
 	 */

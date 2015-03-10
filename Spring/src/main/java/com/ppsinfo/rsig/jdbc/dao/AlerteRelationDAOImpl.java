@@ -51,7 +51,5 @@ public class AlerteRelationDAOImpl implements AlerteRelationDAO {
 			NoSuchFieldException, SecurityException {
 		return CommonOperation.selectWhere(AlerteRelation.class, condition, dataSource);
 	}
-
 	
-
 }
