@@ -40,7 +40,11 @@
    <!-- Autres --><br>
    <a href="/rsig/user/demandemodif/ajout">Liste-Demande-Modif-Ajouter</a><br>
    <a href="/rsig/user/demandemodif/consulter">Liste-Demande-Modif-Consulter</a><br>
-
+   <br>
+	<form action="recherche" method="get">
+	Recherche:<input name="mot" type="text">
+	<input type="submit" value="Rechercher">
+	</form>
 
 
 
